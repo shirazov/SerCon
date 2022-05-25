@@ -26,11 +26,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon';
+const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon'; const id = 3;
 const dat = {
   id: "1",
-  uuid: '1212121212',
-  power: 10,
+  uuid: '2w212',
+  power: 100,
 };
 
 
@@ -66,68 +66,113 @@ const sendData = async (url, data) => { // рабочая отправка
 };
 
 
-const id = 3;
-const delData = async (id) => { // рабочая отправка
+
+const delData = async (id) => { // функция удаленния удаляет только с конца и по id
   console.log('УДАЛЕНИЕ!');
-  
-  await fetch('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon/' + id, {
-  method: 'DELETE',
-})
-.then(res => res.text()) // or res.json()
-.then(res => console.log(res))
+
+  await fetch('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon/:' + id, {
+    method: 'DELETE',
+  })
+    .then(res => res.text()) // or res.json()
+    .then(res => console.log(res))
 };
 
 
 
 
+const updData = (url,someData) => { // пока что не робит
+  fetch('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon/' + id
+  ,{
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(someData)
+  }).then(res => res.json())
+    .then(res => console.log(res));
+}
+
+// function updData(url, data) {
+//   app.put('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon', function (req, res) {
+//     var company = req.company;
+
+//     company = _.extend(company, req.body);
+
+//     company.save(function (err) {
+//       if (err) {
+//         return res.send('/ibeacon', {
+//           errors: err.errors,
+//           company: company
+//         });
+//       } else {
+//         res.json(data);
+//       }
+
+//     });
+//   });
+//   };
 
 
 
 
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView style={styles.highlight} >
-        <Text>Привет!</Text>
-        <Button
-          onPress={() => sendData(url, dat)}
-          title="ОТПРАВИТЬ!"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
 
-        <Button
-          onPress={() => getResourse('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
-          title="ПРОЧИТАТЬ!"
-          color="#001584"
-          accessibilityLabel="Learn more about this purple button"
-        />
 
-        <Button
-          onPress={() => delData('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
-          title="УДАЛЕНИЕ!"
-          color="#007784"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 
-const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '10000',
-    color: 1,
 
-  },
-});
+    const App: () => Node = () => {
+      const isDarkMode = useColorScheme() === 'dark';
 
-export default App;
+      const backgroundStyle = {
+        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      };
+
+      return (
+        <SafeAreaView style={backgroundStyle}>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <ScrollView style={styles.highlight} >
+            <Text>Привет!</Text>
+            <Button
+              onPress={() => sendData(url, dat)}
+              title="ОТПРАВИТЬ!"
+              color="#841584"
+              accessibilityLabel="Learn more about this purple button"
+            />
+
+            <Button
+              onPress={() => getResourse('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
+              title="ПРОЧИТАТЬ!"
+              color="#001584"
+              accessibilityLabel="Learn more about this purple button"
+            />
+
+            <Button
+              onPress={() => delData('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
+              title="УДАЛЕНИЕ!"
+              color="#007784"
+              accessibilityLabel="Learn more about this purple button"
+            />
+
+            <Button
+              onPress={() => updData(url, dat)}
+              title="Обновить!"
+              color="#227711"
+              accessibilityLabel="Learn more about this purple button"
+            />
+          </ScrollView>
+        </SafeAreaView>
+      );
+    };
+
+    const styles = StyleSheet.create({
+      highlight: {
+        fontWeight: '10000',
+        color: 1,
+
+      },
+    });
+
+    export default App;
