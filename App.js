@@ -26,55 +26,48 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
-
+const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon'; 
+const dat = {
+  id: "1",
+  uuid: '1212121212',
+  power: 10,
+};
 
 
 
 const getResourse = async (url) => { //функция для получения из БД //чтение данных - ПОЛУЧУЧЕНИЕ ДАННЫХ
+  console.log('ПРОЧИТКА!');
 
   const response = await fetch(url);
-
   if (!response.ok) {
     throw new Error(`Ошибака по адресу ${url}, стутус ошибки ${response.status}`)
   }
-
   return await response.json();
-
 };
 
-
-
-
-
-
-const sendData = async (url, data) => {
-  console.log('функция отправкиииии');
+const sendData = async (url, data) => { // рабочая отправка
+  console.log('ОТПРАВКА!');
   const response = await fetch(url, {
-    metod: 'POST',
-    body: data,
-  });
+    method: 'post',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)}).then(res=>res.json())
+    .then(res => console.log(res));
 
-  if (!response.ok) {
-    throw new Error(`Ошибака по адресу ${url}, стутус ошибки ${response.status}`)
-  }
-  console.log('функция отправкиииии???????????');
-  return await response.json();
+
+    // if (!response.ok) { // нету объекта ок в объекте репонсе в данном случае в мокАПИ
+    //       throw new Error(`Ошибака по адресу ${url}, стутус ошибки ${response.status}`)
+    // }
+    // console.log('функция отправкиииии???????????');
+    // return await response.json();
 };
 
-const dat = {
-  id: "wwwwwww",
-  uuid: '1212121212',
-  power: 10,
-}
 
 
 
 
-
-
-const beac = JSON.stringify(dat);
-sendData('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((beac) => console.log(beac))
 
 
 
@@ -92,13 +85,14 @@ const App: () => Node = () => {
       <ScrollView style={styles.highlight} >
         <Text>Привет!</Text>
         <Button
-          onPress={()=>sendData('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon', beac).then((beac) => console.log(beac))}
+          onPress={() => sendData(url, dat)}
           title="ОТПРАВИТЬ!"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
+        
         <Button
-          onPress={()=>getResourse('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
+          onPress={() => getResourse('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
           title="ПРОЧИТАТЬ!"
           color="#001584"
           accessibilityLabel="Learn more about this purple button"
@@ -111,7 +105,8 @@ const App: () => Node = () => {
 const styles = StyleSheet.create({
   highlight: {
     fontWeight: '10000',
-    color: 1
+    color: 1,
+    
   },
 });
 
