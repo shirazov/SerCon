@@ -26,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon'; 
+const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon';
 const dat = {
   id: "1",
   uuid: '1212121212',
@@ -53,15 +53,28 @@ const sendData = async (url, data) => { // рабочая отправка
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)}).then(res=>res.json())
+    body: JSON.stringify(data)
+  }).then(res => res.json())
     .then(res => console.log(res));
 
 
-    // if (!response.ok) { // нету объекта ок в объекте репонсе в данном случае в мокАПИ
-    //       throw new Error(`Ошибака по адресу ${url}, стутус ошибки ${response.status}`)
-    // }
-    // console.log('функция отправкиииии???????????');
-    // return await response.json();
+  // if (!response.ok) { // нету объекта ок в объекте репонсе в данном случае в мокАПИ
+  //       throw new Error(`Ошибака по адресу ${url}, стутус ошибки ${response.status}`)
+  // }
+  // console.log('функция отправкиииии???????????');
+  // return await response.json();
+};
+
+
+const id = 3;
+const delData = async (id) => { // рабочая отправка
+  console.log('УДАЛЕНИЕ!');
+  
+  await fetch('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon/' + id, {
+  method: 'DELETE',
+})
+.then(res => res.text()) // or res.json()
+.then(res => console.log(res))
 };
 
 
@@ -90,11 +103,18 @@ const App: () => Node = () => {
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
-        
+
         <Button
           onPress={() => getResourse('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
           title="ПРОЧИТАТЬ!"
           color="#001584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
+        <Button
+          onPress={() => delData('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon').then((data) => console.log(data))}
+          title="УДАЛЕНИЕ!"
+          color="#007784"
           accessibilityLabel="Learn more about this purple button"
         />
       </ScrollView>
@@ -106,7 +126,7 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '10000',
     color: 1,
-    
+
   },
 });
 
