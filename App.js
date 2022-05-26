@@ -26,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon'; const id = 3;
+const url = 'https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon';
 const dat = {
   id: "1",
   uuid: '2w212',
@@ -65,8 +65,6 @@ const sendData = async (url, data) => { // рабочая отправка
   // return await response.json();
 };
 
-
-
 const delData = async (id) => { // функция удаленния удаляет только с конца и по id
   console.log('УДАЛЕНИЕ!');
 
@@ -77,10 +75,7 @@ const delData = async (id) => { // функция удаленния удаля�
     .then(res => console.log(res))
 };
 
-
-
-
-const updData = (url,someData) => { // пока что не робит
+const updData = (url,someData) => { // 
   fetch('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon/' + id
   ,{
     method: 'PUT',
@@ -93,28 +88,28 @@ const updData = (url,someData) => { // пока что не робит
     .then(res => console.log(res));
 }
 
-// function updData(url, data) {
-//   app.put('https://628c8a38a3fd714fd034114b.mockapi.io/ibeacon', function (req, res) {
-//     var company = req.company;
-
-//     company = _.extend(company, req.body);
-
-//     company.save(function (err) {
-//       if (err) {
-//         return res.send('/ibeacon', {
-//           errors: err.errors,
-//           company: company
-//         });
-//       } else {
-//         res.json(data);
-//       }
-
-//     });
-//   });
-//   };
 
 
+var ww = 0;const id = 1;
+const dat1 = {
+  id: "1",
+  room: 300+ww,
+};
 
+
+// setInterval(function(){ 
+//   fetch('https://628c8a38a3fd714fd034114b.mockapi.io/' + id
+//   ,{
+//     method: 'PUT',
+//     headers: {
+//       'Accept': 'application/json, text/plain, */*',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(dat1)
+//   }).then(res => res.json())
+//     .then(res => console.log(res));
+//     ww = ww+1
+// }, 1000);
 
 
 
