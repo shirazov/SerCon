@@ -90,26 +90,28 @@ const updData = (url,someData) => { //
 
 
 
-var ww = 0;const id = 1;
+var ww = 303;const id = 1;
 const dat1 = {
   id: "1",
-  room: 300+ww,
+  room: ww,
 };
 
 
-// setInterval(function(){ 
-//   fetch('https://628c8a38a3fd714fd034114b.mockapi.io/' + id
-//   ,{
-//     method: 'PUT',
-//     headers: {
-//       'Accept': 'application/json, text/plain, */*',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(dat1)
-//   }).then(res => res.json())
-//     .then(res => console.log(res));
-//     ww = ww+1
-// }, 1000);
+setInterval(function(){ //////функцию каждый момент
+  
+  
+  fetch('https://628c8a38a3fd714fd034114b.mockapi.io/room/' + id
+  ,{
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(dat1)
+  }).then(res => res.json())
+    .then(res => console.log(res));
+    
+}, 10000);
 
 
 
