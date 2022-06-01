@@ -95,6 +95,7 @@ const dat1 = {
   id: "1",
   room: ww,
 };
+const rer = "удалите эту строку";
 
 
 setInterval(function(){ //////функцию каждый момент
@@ -112,40 +113,7 @@ setInterval(function(){ //////функцию каждый момент
     .then(res => console.log(res));
     
 }, 10000);
-serInterval(function(){ //////функцию каждый момент удалиииить
-  
-  
-  fetch('https://628c8a38a3fd714fd034114b.mockapi.io/room/' + id
-  ,{
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dat1)
-  }).then(res => res.json())
-    .then(res => console.log(res));
-    
-}, 10000);
 
-serInterval(function(){ //////функцию каждый момент удалиииить
-  
-  
-  fetch('https://628c8a38a3fd714fd034114b.mockapi.io/room/' + id
-  ,{
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dat1)
-  }).then(res => res.json())
-    .then(res => console.log(res));
-    
-}, 10000);
-
-
-//nffffrfr 
 
 
 
